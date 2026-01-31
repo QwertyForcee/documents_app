@@ -1,0 +1,12 @@
+<div class="page-nav-bar">
+    <div class="page-nav-bar-links">
+        <a routerLink="/docs" class="page-nav-bar-header">Documents</a>
+        <a>History</a>
+        <a routerLink="/statistics">Statistics</a>
+    </div>
+
+    @if (isUserLoggedIn$ | async) {
+    <button class="log-out-btn" (click)="onLogOut()">Log out</button>
+    }
+</div>
+<router-outlet></router-outlet>

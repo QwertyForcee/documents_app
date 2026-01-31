@@ -1,0 +1,53 @@
+.document-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform .15s ease, box-shadow .15s ease;
+    cursor: pointer;
+    position: relative;
+
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+    }
+
+    .document-name {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 6px;
+    }
+
+    .document-exp-date {
+        font-size: 0.85rem;
+        color: #777;
+    }
+
+    &-actions {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        display: flex;
+        gap: 8px;
+
+        .material-icons {
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity .15s ease, transform .15s ease;
+        }
+
+        .material-icons:hover {
+            opacity: 1;
+            transform: scale(1.15);
+        }
+
+        .edit-icon {
+            color: #4f8cff;
+        }
+
+        .delete-icon {
+            color: #e74c3c;
+        }
+    }
+}

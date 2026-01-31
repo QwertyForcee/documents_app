@@ -1,0 +1,8 @@
+<div class="document-card">
+    <div class="document-name">{{ document.name }}</div>
+    <div class="document-exp-date">Expiration Date: {{ document.expirationDate | date:'dd.MM.yyyy' }}</div>
+    <div class="document-card-actions">
+        <span class="material-icons edit-icon" (click)="onEdit()">edit</span>
+        <span class="material-icons delete-icon" (click)="onDelete()">delete</span>
+    </div>
+</div>

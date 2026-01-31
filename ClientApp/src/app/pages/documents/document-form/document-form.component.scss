@@ -1,0 +1,32 @@
+.document-form {
+    display: flex;
+    flex-direction: column;
+
+    &-main {
+        padding: 35px;
+
+        &-title {
+            text-align: center;
+        }
+
+        &-actions {
+            justify-content: center;
+        }
+    }
+}
+
+.coordinates-row {
+    display: flex;
+    gap: 16px;
+
+    mat-form-field {
+        flex: 1;
+    }
+}
+
+.document-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 16px;
+}

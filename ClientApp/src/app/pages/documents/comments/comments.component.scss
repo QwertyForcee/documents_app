@@ -1,0 +1,10 @@
+.comments {
+    background: rgb(211, 211, 211);
+    margin: 35px;
+    max-height: 300px;
+    overflow-y: auto;
+
+    &-form {
+        margin: 15px;
+    }
+}

@@ -1,0 +1,138 @@
+# =========================
+# ASP.NET Core / .NET
+# =========================
+
+## Build results
+bin/
+obj/
+out/
+artifacts/
+
+## User-specific files
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+*.userprefs
+
+## Logs
+*.log
+*.tlog
+
+## Visual Studio
+.vs/
+.vscode/
+*.code-workspace
+
+## Rider / JetBrains
+.idea/
+*.sln.iml
+
+## NuGet
+*.nupkg
+*.snupkg
+packages/
+.nuget/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+## Others
+*.dbmdl
+*.bak
+*.backup
+*.mdf
+*.ldf
+*.pdb
+*.tmp
+*.temp
+*.cache
+*.svclog
+TestResult*/
+*.coverage
+*.coveragexml
+
+# =========================
+# Angular / Node.js (ClientApp)
+# =========================
+
+# Node dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+.pnpm-store/
+.cache/
+
+# Build output
+dist/
+build/
+tmp/
+temp/
+out-tsc/
+coverage/
+.DS_Store
+
+# Angular specific
+.angular/
+.angular/cache/
+.angular.json.save
+
+# Environment files (keep local secrets out of git)
+src/environments/environment*.ts
+!src/environments/environment.example.ts
+
+# IDE / tooling
+*.iml
+*.swp
+*.swo
+
+# =========================
+# OS / Misc
+# =========================
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux
+*~
+
+# =========================
+# Publish artifacts
+# =========================
+
+wwwroot/dist/
+wwwroot/assets/
+publish/
+*.Publish.xml
+*.pubxml
+*.pubxml.user
+
+# =========================
+# Docker
+# =========================
+
+docker-compose.override.yml
+.docker/
+
+# =========================
+# Logs / secrets
+# =========================
+
+secrets.json
+*.Key
+*.pem
+*.crt
+*.csr
+*.pfx
+*.cer

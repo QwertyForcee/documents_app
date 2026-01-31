@@ -1,0 +1,17 @@
+<div class="comments">
+
+    <div class="comments-form">
+        <textarea [(ngModel)]="newComment" placeholder="Напишите комментарий..." rows="3">
+            </textarea>
+        <button type="button" (click)="addComment()" [disabled]="!newComment.trim()">
+            Отправить
+        </button>
+    </div>
+
+    @for (comment of comments; track comment.id) {
+    <div class="comment">
+        {{comment.text}}
+        <span class="material-icons delete-icon" (click)="onDelete(comment.id)">delete</span>
+    </div>
+    }
+</div>

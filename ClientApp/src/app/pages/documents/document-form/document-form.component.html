@@ -1,0 +1,50 @@
+<div class="document-form">
+    <div class="document-form-main">
+
+        <h2 class="document-form-title" mat-dialog-title>{{formTitle}}</h2>
+
+        <form #form="ngForm" (ngSubmit)="save(form)">
+
+            <mat-form-field appearance="fill">
+                <mat-label>Имя</mat-label>
+                <input matInput [(ngModel)]="name" name="name" required maxlength="100">
+            </mat-form-field>
+
+            <!-- Description -->
+            <mat-form-field appearance="fill" class="full-width">
+                <mat-label>Описание</mat-label>
+                <textarea matInput [(ngModel)]="description" name="description" rows="3" maxlength="500">
+      </textarea>
+            </mat-form-field>
+
+            <!-- Expiration date -->
+            <mat-form-field appearance="fill" class="full-width">
+                <mat-label>Expiration date</mat-label>
+                <input matInput type="date" [ngModel]="expirationDate | date:'yyyy-MM-dd'"
+                    (ngModelChange)="onExpirationDateChanged($event)" name="expirationDate" required />
+            </mat-form-field>
+
+            <!-- Coordinates -->
+            <div class="coordinates-row">
+                <mat-form-field appearance="fill">
+                    <mat-label>Latitude</mat-label>
+                    <input matInput type="number" step="any" [(ngModel)]="latitude" name="latitude" />
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Longitude</mat-label>
+                    <input matInput type="number" step="any" [(ngModel)]="longitude" name="longitude" />
+                </mat-form-field>
+            </div>
+
+            <div class="document-form-actions" mat-dialog-actions>
+                <button mat-button mat-dialog-close>Отмена</button>
+                <button mat-raised-button color="primary" type="submit">Сохранить</button>
+            </div>
+
+        </form>
+    </div>
+    @if (documentId) {
+        <app-comments [documentId]="documentId"></app-comments>
+    }
+</div>

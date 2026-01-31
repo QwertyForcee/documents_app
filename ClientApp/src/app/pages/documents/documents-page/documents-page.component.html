@@ -1,0 +1,11 @@
+<div class="documents-page">
+    <div class="documents-page-actions">
+        <button class="add-new-doc-btn" (click)="onAddDocumentClick()">Add document</button>
+    </div>
+
+    <div class="document-cards">
+        @for (doc of documents; track doc.id) {
+        <app-document-card [document]="doc" (edit)="onEdit($event)" (delete)="onDelete($event)"></app-document-card>
+        }
+    </div>
+</div>

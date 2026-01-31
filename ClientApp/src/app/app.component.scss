@@ -1,0 +1,18 @@
+.page-nav-bar {
+
+    display: flex;
+    justify-content: space-between;
+
+    &-links {
+        margin: 15px 0 5px 50px;
+        
+        a {
+            margin: 0 5px;
+        }
+    }
+
+    .log-out-btn {
+        margin-right: 50px;
+        margin: 15px 50px 15px 0;
+    }
+}
