@@ -6,18 +6,18 @@ import { CreateDocumentModel, DocumentDetails } from '../../../models/documents-
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { CommentModel, CreateCommentModel } from '../../../models/comment-model';
-import { CommentsService } from '../../../services/comments.service';
 import { iif, of, Subject, takeUntil } from 'rxjs';
 import { CommentsComponent } from '../comments/comments.component';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { DocumentFormData } from '../../../models/document-form-data';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @Component({
   selector: 'app-document-form',
   standalone: true,
   imports: [
-    MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, MatDialogModule, CommonModule, CommentsComponent
+    MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, MatDialogModule, CommonModule, CommentsComponent, MatDatepickerModule
   ],
   templateUrl: './document-form.component.html',
   styleUrl: './document-form.component.scss'
@@ -26,7 +26,7 @@ export class DocumentFormComponent implements OnDestroy {
   name: string = '';
   description: string = '';
   jobTitle: string = '';
-  expirationDate: Date | undefined;
+  expirationDate!: Date;
   latitude?: number;
   longitude?: number;
 
@@ -49,7 +49,7 @@ export class DocumentFormComponent implements OnDestroy {
   ) {
     this.isReadOnly = data?.isReadOnly;
     const documentDetails = data?.documentDetails;
-    
+
     if (documentDetails) {
       this.documentId = documentDetails.id;
 
@@ -71,19 +71,24 @@ export class DocumentFormComponent implements OnDestroy {
   save(form: NgForm) {
     if (!form.valid) { return; }
 
+    const utcDate = new Date(Date.UTC(
+      this.expirationDate.getFullYear(),
+      this.expirationDate.getMonth(),
+      this.expirationDate.getDate(),
+      0, 0, 0
+    ));
+
+    const isoUTC = utcDate.toISOString();
+
     const newContact: CreateDocumentModel = {
       name: this.name,
       description: this.description,
       latitude: this.latitude,
       longitude: this.longitude,
-      expirationDate: this.expirationDate!.toISOString()
+      expirationDate: isoUTC
     };
 
     this.dialogRef.close(newContact);
-  }
-
-  onExpirationDateChanged($event: Date | null): void {
-    this.expirationDate = $event ? new Date($event) : undefined
   }
 
   copyLink(): void {

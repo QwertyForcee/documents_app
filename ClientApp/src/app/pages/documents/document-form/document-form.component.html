@@ -25,10 +25,14 @@
                 <!-- Expiration date -->
                 <mat-form-field appearance="fill" class="full-width">
                     <mat-label>Expiration date</mat-label>
-                    <input matInput type="date" [ngModel]="expirationDate | date:'yyyy-MM-dd'"
-                        (ngModelChange)="onExpirationDateChanged($event)" name="expirationDate" required />
-                </mat-form-field>
 
+                    <input matInput [matDatepicker]="picker" [(ngModel)]="expirationDate" name="expirationDate"
+                        required />
+
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                
                 <!-- Coordinates -->
                 <div class="coordinates-row">
                     <mat-form-field appearance="fill">
