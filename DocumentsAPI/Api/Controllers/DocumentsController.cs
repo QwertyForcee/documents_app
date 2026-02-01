@@ -23,10 +23,10 @@ namespace DocumentsAPI.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<DocumentListItemDTO>>> GetUserDocuments()
+        public async Task<ActionResult<List<DocumentListItemDTO>>> GetUserDocuments([FromQuery] DocumentStatus status)
         {
             var userId = User.GetUserId();
-            var documents = await _documentService.GetDocumentsAsync(userId);
+            var documents = await _documentService.GetDocumentsAsync(userId, status);
 
             var result = _mapper.Map<List<DocumentListItemDTO>>(documents);
             return Ok(result);
@@ -76,6 +76,13 @@ namespace DocumentsAPI.Api.Controllers
             var userId = User.GetUserId();
             await _documentService.DeleteDocumentAsync(id, userId);
             return NoContent();
+        }
+
+        [HttpPost("{id:guid}/copy")]
+        public async Task<ActionResult<Guid?>> CopyDocument(Guid id)
+        {
+            var userId = User.GetUserId();
+            return await _documentService.CopyAndDeleteDocument(id, userId);
         }
     }
 }

@@ -1,3 +1,5 @@
+@use 'mixins' as m;
+
 .document-form {
     display: flex;
     flex-direction: column;
@@ -12,6 +14,19 @@
         &-actions {
             justify-content: center;
         }
+
+        &-fieldset {
+            border: 0;
+            padding: 0;
+            margin: 0;
+            min-width: 0;
+        }
+    }
+
+    .copy-link-btn {
+        @include m.action-button;
+        margin: 10px 5px 25px 5px;
+        padding: 10px;
     }
 }
 

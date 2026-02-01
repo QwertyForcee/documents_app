@@ -3,48 +3,56 @@
 
         <h2 class="document-form-title" mat-dialog-title>{{formTitle}}</h2>
 
+        @if (!isNew && !isReadOnly) {
+        <button class="copy-link-btn" (click)="copyLink()">Copy link</button>
+        }
+
         <form #form="ngForm" (ngSubmit)="save(form)">
-
-            <mat-form-field appearance="fill">
-                <mat-label>Имя</mat-label>
-                <input matInput [(ngModel)]="name" name="name" required maxlength="100">
-            </mat-form-field>
-
-            <!-- Description -->
-            <mat-form-field appearance="fill" class="full-width">
-                <mat-label>Описание</mat-label>
-                <textarea matInput [(ngModel)]="description" name="description" rows="3" maxlength="500">
-      </textarea>
-            </mat-form-field>
-
-            <!-- Expiration date -->
-            <mat-form-field appearance="fill" class="full-width">
-                <mat-label>Expiration date</mat-label>
-                <input matInput type="date" [ngModel]="expirationDate | date:'yyyy-MM-dd'"
-                    (ngModelChange)="onExpirationDateChanged($event)" name="expirationDate" required />
-            </mat-form-field>
-
-            <!-- Coordinates -->
-            <div class="coordinates-row">
-                <mat-form-field appearance="fill">
-                    <mat-label>Latitude</mat-label>
-                    <input matInput type="number" step="any" [(ngModel)]="latitude" name="latitude" />
-                </mat-form-field>
+            <fieldset [disabled]="isReadOnly" class="document-form-main-fieldset">
 
                 <mat-form-field appearance="fill">
-                    <mat-label>Longitude</mat-label>
-                    <input matInput type="number" step="any" [(ngModel)]="longitude" name="longitude" />
+                    <mat-label>Имя</mat-label>
+                    <input matInput [(ngModel)]="name" name="name" required maxlength="100">
                 </mat-form-field>
-            </div>
+
+                <!-- Description -->
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>Описание</mat-label>
+                    <textarea matInput [(ngModel)]="description" name="description" rows="3" maxlength="500">
+                </textarea>
+                </mat-form-field>
+
+                <!-- Expiration date -->
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>Expiration date</mat-label>
+                    <input matInput type="date" [ngModel]="expirationDate | date:'yyyy-MM-dd'"
+                        (ngModelChange)="onExpirationDateChanged($event)" name="expirationDate" required />
+                </mat-form-field>
+
+                <!-- Coordinates -->
+                <div class="coordinates-row">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Latitude</mat-label>
+                        <input matInput type="number" step="any" [(ngModel)]="latitude" name="latitude" />
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>Longitude</mat-label>
+                        <input matInput type="number" step="any" [(ngModel)]="longitude" name="longitude" />
+                    </mat-form-field>
+                </div>
+            </fieldset>
 
             <div class="document-form-actions" mat-dialog-actions>
-                <button mat-button mat-dialog-close>Отмена</button>
+                <button mat-button mat-dialog-close>Закрыть</button>
+                @if (!isReadOnly) {
                 <button mat-raised-button color="primary" type="submit">Сохранить</button>
+                }
             </div>
 
         </form>
     </div>
     @if (documentId) {
-        <app-comments [documentId]="documentId"></app-comments>
+    <app-comments [documentId]="documentId" [isReadOnly]="isReadOnly"></app-comments>
     }
 </div>

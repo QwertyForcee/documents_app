@@ -10,6 +10,8 @@ import { CommentModel, CreateCommentModel } from '../../../models/comment-model'
 import { CommentsService } from '../../../services/comments.service';
 import { iif, of, Subject, takeUntil } from 'rxjs';
 import { CommentsComponent } from '../comments/comments.component';
+import { Clipboard } from '@angular/cdk/clipboard';
+import { DocumentFormData } from '../../../models/document-form-data';
 
 @Component({
   selector: 'app-document-form',
@@ -28,26 +30,35 @@ export class DocumentFormComponent implements OnDestroy {
   latitude?: number;
   longitude?: number;
 
+  isReadOnly?: boolean;
   documentId?: string;
   private readonly destroy$ = new Subject<void>();
 
+  get isNew(): boolean {
+    return !this.documentId;
+  }
+
   get formTitle() {
-    return !!this.documentId ? 'Create document' : 'Change document';
+    return !this.isNew ? 'Change document' : 'Create document';
   }
 
   constructor(
     private dialogRef: MatDialogRef<DocumentFormComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DocumentDetails | null
+    private clipboard: Clipboard,
+    @Inject(MAT_DIALOG_DATA) public data: DocumentFormData | null
   ) {
-    if (data) {
-      this.documentId = data.id;
+    this.isReadOnly = data?.isReadOnly;
+    const documentDetails = data?.documentDetails;
+    
+    if (documentDetails) {
+      this.documentId = documentDetails.id;
 
-      this.name = data.name;
-      this.description = data.description;
-      this.latitude = data.latitude;
-      this.longitude = data.longitude;
-      if (data.expirationDate) {
-        this.expirationDate = new Date(data.expirationDate);
+      this.name = documentDetails.name;
+      this.description = documentDetails.description;
+      this.latitude = documentDetails.latitude;
+      this.longitude = documentDetails.longitude;
+      if (documentDetails.expirationDate) {
+        this.expirationDate = new Date(documentDetails.expirationDate);
       }
     }
   }
@@ -73,5 +84,12 @@ export class DocumentFormComponent implements OnDestroy {
 
   onExpirationDateChanged($event: Date | null): void {
     this.expirationDate = $event ? new Date($event) : undefined
+  }
+
+  copyLink(): void {
+    const baseUrl = window.location.origin;
+    const link = `${baseUrl}/docs/${this.documentId}`;
+
+    this.clipboard.copy(link);
   }
 }

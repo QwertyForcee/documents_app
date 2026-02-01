@@ -1,3 +1,8 @@
+export enum DocumentStatus {
+    Active = 1,
+    Expired,
+}
+
 export interface DocumentListItem {
     id: string;
     name: string;

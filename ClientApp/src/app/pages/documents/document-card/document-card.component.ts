@@ -13,14 +13,17 @@ import { DocumentListItem } from '../../../models/documents-models';
 })
 export class DocumentCardComponent {
   @Input() document!: DocumentListItem;
-  @Output() edit = new EventEmitter<DocumentListItem>();
+  @Input() isReadOnly!: boolean;
+
+  @Output() openForm = new EventEmitter<DocumentListItem>();
   @Output() delete = new EventEmitter<DocumentListItem>();
 
-  onEdit() {
-    this.edit.emit(this.document);
+  onOpenForm(): void {
+    this.openForm.emit(this.document);
   }
 
-  onDelete() {
+  onDelete(): void {
+    if (this.isReadOnly) return;
     this.delete.emit(this.document);
   }
 }

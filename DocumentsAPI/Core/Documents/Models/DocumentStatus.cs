@@ -4,6 +4,5 @@
     {
         Active = 1,
         Expired,
-        Deleted
     }
 }

@@ -17,6 +17,7 @@ import { CommonModule } from '@angular/common';
 })
 export class CommentsComponent implements OnInit, OnDestroy {
   @Input() documentId?: string;
+  @Input() isReadOnly?: boolean;
 
   comments: CommentModel[] = [];
   newComment = '';

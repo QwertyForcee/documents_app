@@ -1,6 +1,8 @@
 using DocumentsAPI.Core.Documents.Interfaces;
 using DocumentsAPI.Core.Documents.Services;
 using DocumentsAPI.Core.Jobs;
+using DocumentsAPI.Core.Statistics.Interfaces;
+using DocumentsAPI.Core.Statistics.Services;
 using DocumentsAPI.Core.Users.Interfaces;
 using DocumentsAPI.Core.Users.Services;
 using DocumentsAPI.Core.Users.Settings;
@@ -36,6 +38,7 @@ services.Configure<JwtOptions>(builder.Configuration.GetSection("Jwt"));
 services.AddScoped<IDocumentService, DocumentService>();
 services.AddScoped<ICommentService, CommentService>();
 services.AddScoped<ICleanUpOldDocumentsService, CleanUpOldDocumentsService>();
+services.AddScoped<IUserStatisticsService, UserStatisticsService>();
 
 services
     .AddAuthentication("Bearer")
@@ -61,7 +64,7 @@ services
 
 services.AddAutoMapper(typeof(Program));
 
-builder.Services.AddQuartz(q =>
+services.AddQuartz(q =>
 {
     var jobKey = new JobKey(nameof(CleanUpOldDocumentsJob));
     q.AddJob<CleanUpOldDocumentsJob>(options => options.WithIdentity(jobKey));
@@ -74,7 +77,7 @@ builder.Services.AddQuartz(q =>
     );
 });
 
-builder.Services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
+services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
 
 services.AddControllers();
 

@@ -1,18 +1,22 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { CreateDocumentModel, DocumentDetails, DocumentListItem, UpdateDocumentModel } from "../models/documents-models";
+import { CreateDocumentModel, DocumentDetails, DocumentListItem, DocumentStatus, UpdateDocumentModel } from "../models/documents-models";
+import { environment } from "../../environments/environment";
 
 @Injectable({
     providedIn: 'root'
 })
 export class DocumentsService {
-    private apiUrl = 'http://localhost:5000/api/documents';
+    private apiUrl = `${environment.apiUrl}/documents`;
 
     constructor(private http: HttpClient) { }
 
-    getDocuments(): Observable<DocumentListItem[]> {
-        return this.http.get<DocumentListItem[]>(`${this.apiUrl}`);
+    getDocuments(status: DocumentStatus): Observable<DocumentListItem[]> {
+        const params = new HttpParams()
+            .set('status', status);
+
+        return this.http.get<DocumentListItem[]>(`${this.apiUrl}`, { params });
     }
 
     getDocumentById(id: string): Observable<DocumentDetails> {
@@ -29,5 +33,9 @@ export class DocumentsService {
 
     deleteDocument(id: string): Observable<void> {
         return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    }
+
+    copyDocument(id: string): Observable<string> {
+        return this.http.post<string>(`${this.apiUrl}/${id}/copy`, null);
     }
 }

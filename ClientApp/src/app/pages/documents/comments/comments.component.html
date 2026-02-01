@@ -1,5 +1,6 @@
 <div class="comments">
 
+    @if (!isReadOnly){
     <div class="comments-form">
         <textarea [(ngModel)]="newComment" placeholder="Напишите комментарий..." rows="3">
             </textarea>
@@ -7,11 +8,14 @@
             Отправить
         </button>
     </div>
+    }
 
     @for (comment of comments; track comment.id) {
     <div class="comment">
         {{comment.text}}
+        @if (!isReadOnly) {
         <span class="material-icons delete-icon" (click)="onDelete(comment.id)">delete</span>
+        }
     </div>
     }
 </div>
